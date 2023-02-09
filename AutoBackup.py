@@ -90,4 +90,5 @@ def upload():
 os.system("systemctl enable x-uiAutoBackup")
 while True:
     upload()
+    print()
     time.sleep(60)

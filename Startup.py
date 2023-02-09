@@ -23,6 +23,6 @@ f.writelines("[Unit]\nDescription=x-ui Auto Backup\n\n[Service]\nExecStart=/usr/
 #f.writelines("[Unit]\nDescription=x-ui Auto Backup\n\n[Service]\nExecStart=screen /usr/bin/python3 "+str(os.path.abspath(__file__))+"\n\n[Install]\nWantedBy=multi-user.target")
 f.close()
 
-os.system("systemctl daemon-reload")
+os.system("sudo systemctl daemon-reload")
 os.system("sudo systemctl start x-uiAutoBackup")
-os.system("systemctl enable x-uiAutoBackup")
+os.system("sudo systemctl enable x-uiAutoBackup")

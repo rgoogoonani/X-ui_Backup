@@ -9,51 +9,16 @@ except:
 import urllib3
 urllib3.disable_warnings()
 
-f=open("/etc/systemd/system/x-uiAutoBackup.service","w")
-f.writelines("[Unit]\nDescription=x-ui Auto Backup\nAfter=network-online.target\nAfter=dbus.service\n\n[Service]\nType=forking\nExecStart=python3 "+str(os.path.abspath(__file__))+"\nExecReload=pkill python3\n\n[Install]\nWantedBy=multi-user.target")
-f.close()
 
-try:
-    f=open("config.txt","r+")
-except:
-    f=open("config.txt","w")
-    f.close()
-    f=open("config.txt","r+")
-chid=""
-Name=""
-FileAddres=""
-
+f=open("/XuiBackUp/config.txt","r+")
 lines=f.readlines()
-if len(lines)>0:
-    print(lines)
-    chid=lines[0].replace('\n','').replace('\r','')
-    Name=lines[1].replace('\n','').replace('\r','')
-    FileAddres=lines[2].replace('\n','').replace('\r','')
-    f.close()
-else:
-    f.close()
-    chid=input("Chatid : ")
-    if chid=="":
-        chid="189875244"
-    print(chid)
-    #-------------------------------------------------------------------
-    Name=input("Server Name : ")
-    print(Name)
-    #-------------------------------------------------------------------
-    FileAddres=input("File Addres : ")
-    if FileAddres=="":
-        FileAddres="/etc/x-ui-english/x-ui-english.db"
-    print(FileAddres)
-    f=open("config.txt","w")
-
-    f.writelines(chid+'\n'+Name+'\n'+FileAddres)
-    f.close()
-
-
+f.close()
+chid=lines[0].replace('\n','').replace('\r','')
+Name=lines[1].replace('\n','').replace('\r','')
+FileAddres=lines[2].replace('\n','').replace('\r','')
 spl1=FileAddres.split("/")
 t=len(spl1)-1
 FileName=spl1[t]
-print("Uploading : "+FileName)
 
 #-------------------------------------------------------------------
 def upload():
@@ -84,10 +49,7 @@ def upload():
     
     j=json.loads(rec)
     requests.get("https://api.telegram.org/bot5778651204:AAHWTVjFvM2UqbwWsqzDLr1RsfBH-GC9pV0/sendMessage?chat_id="+chid+"&text=Server Name : "+Name+" Backup Link : https://uplod.ir/"+j[0]["file_code"]+"/"+FileName+".htm")
-    print("uploaded")
-os.system("sudo systemctl start x-uiAutoBackup")
-os.system("systemctl enable x-uiAutoBackup")
+    
 while True:
-    upload()
+    
     time.sleep(60)
-#------------------------------------------------------------

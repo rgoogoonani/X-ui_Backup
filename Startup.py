@@ -1,7 +1,7 @@
 import os
 
 botToken = input("Bot Token :")
-while len(botToken)<74 or not botToken.__contains__("bot"):
+while len(botToken)<74 or botToken.__contains__("bot") == False:
     botToken = input("invalid bot token try again: ")
 print(botToken)
 #-------------------------------------------------------------------

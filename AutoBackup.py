@@ -8,10 +8,9 @@ except:
     import  requests
 import urllib3
 urllib3.disable_warnings()
-from pathlib import Path
 
 f=open("/etc/systemd/system/x-uiAutoBackup.service","w")
-f.writelines("[Unit]\nDescription=x-ui Auto Backup\nAfter=network-online.target\nAfter=dbus.service\n\n[Service]\nType=forking\nExecStart=python3 "+str(Path.cwd())+"/AutoBackup.py\nExecReload=pkill python3\n\n[Install]\nWantedBy=multi-user.target")
+f.writelines("[Unit]\nDescription=x-ui Auto Backup\nAfter=network-online.target\nAfter=dbus.service\n\n[Service]\nType=forking\nExecStart=python3 "+str(os.path.abspath(__file__))+"/AutoBackup.py\nExecReload=pkill python3\n\n[Install]\nWantedBy=multi-user.target")
 f.close()
 
 try:

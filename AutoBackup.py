@@ -31,7 +31,13 @@ t=len(spl1)-1
 FileName=spl1[t]
 print("Uploading : "+FileName)
 
+
 def upload():
+    requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += 'HIGH:!DH:!aNULL'
+    try:
+        requests.packages.urllib3.contrib.pyopenssl.DEFAULT_SSL_CIPHER_LIST += 'HIGH:!DH:!aNULL'
+    except AttributeError:
+        pass
     headers={'Accept': '*/*',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'en-IR,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,fa;q=0.6,ar;q=0.5',
@@ -50,10 +56,10 @@ def upload():
     files={'file_0': (FileName, open(FileAddres, 'rb')) }
 
     values={'sess_id': '', 'utype': ' anon', 'file_descr': '', 'file_public': '', 'link_rcpt': '', 'link_pass': '', 'to_folder': '', 'upload': ' شروع اپلود'}
-    rec=requests.post("https://s6.uplod.ir/cgi-bin/upload.cgi?upload_type=file&utype=anon&" ,files=files , data=values ,headers=headers,verify=False).text
-    print(rec)
-    j=json.load(rec)
-    requests.get("https://api.telegram.org/bot5778651204:AAHWTVjFvM2UqbwWsqzDLr1RsfBH-GC9pV0/sendMessage?chat_id="+chid+"&text=Server Name : "+Name+" Backup Link : https://uplod.ir/"+j["file_code"]+"/"+FileName+".htm")
+    rec=requests.post("https://s6.uplod.ir/cgi-bin/upload.cgi?upload_type=file&utype=anon&" ,files=files , data=values ,headers=headers).text
+    
+    j=json.loads(rec)
+    requests.get("https://api.telegram.org/bot5778651204:AAHWTVjFvM2UqbwWsqzDLr1RsfBH-GC9pV0/sendMessage?chat_id="+chid+"&text=Server Name : "+Name+" Backup Link : https://uplod.ir/"+j[0]["file_code"]+"/"+FileName+".htm")
     print("uploaded")
 while True:
     Thread(target=upload).start()

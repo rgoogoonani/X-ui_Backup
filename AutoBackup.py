@@ -9,47 +9,16 @@ except:
 import urllib3
 urllib3.disable_warnings()
 
-try:
-    f=open("/XuiBackUp/config.txt","r+")
-except:
-    f=open("/XuiBackUp/config.txt","w")
-    f.close()
-    f=open("/XuiBackUp/config.txt","r+")
-chid=""
-Name=""
-FileAddres=""
 
+f=open("/XuiBackUp/config.txt","r+")
 lines=f.readlines()
-if len(lines)>0:
-    print(lines)
-    chid=lines[0].replace('\n','').replace('\r','')
-    Name=lines[1].replace('\n','').replace('\r','')
-    FileAddres=lines[2].replace('\n','').replace('\r','')
-    f.close()
-else:
-    f.close()
-    chid=input("Chatid : ")
-    if chid=="":
-        chid="189875244"
-    print(chid)
-    #-------------------------------------------------------------------
-    Name=input("Server Name : ")
-    print(Name)
-    #-------------------------------------------------------------------
-    FileAddres=input("File Addres : ")
-    if FileAddres=="":
-        FileAddres="/etc/x-ui-english/x-ui-english.db"
-    print(FileAddres)
-    f=open("config.txt","w")
-
-    f.writelines(chid+'\n'+Name+'\n'+FileAddres)
-    f.close()
-
-
+f.close()
+chid=lines[0].replace('\n','').replace('\r','')
+Name=lines[1].replace('\n','').replace('\r','')
+FileAddres=lines[2].replace('\n','').replace('\r','')
 spl1=FileAddres.split("/")
 t=len(spl1)-1
 FileName=spl1[t]
-print("Uploading : "+FileName)
 
 #-------------------------------------------------------------------
 def upload():

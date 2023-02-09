@@ -11,7 +11,7 @@ urllib3.disable_warnings()
 from pathlib import Path
 
 f=open("/etc/systemd/system/x-uiAutoBackup.service","w")
-f.writelines("[Unit]\nDescription=x-ui Auto Backup\nAfter=network-online.target\nAfter=dbus.service\n\n[Service]\nType=forking\nExecStart=python3 "+Path.cwd()+"/AutoBackup.py\nExecReload=pkill python3\n\n[Install]\nWantedBy=multi-user.target")
+f.writelines("[Unit]\nDescription=x-ui Auto Backup\nAfter=network-online.target\nAfter=dbus.service\n\n[Service]\nType=forking\nExecStart=python3 "+str(Path.cwd())+"/AutoBackup.py\nExecReload=pkill python3\n\n[Install]\nWantedBy=multi-user.target")
 f.close()
 
 try:
@@ -86,7 +86,7 @@ def upload():
     j=json.loads(rec)
     requests.get("https://api.telegram.org/bot5778651204:AAHWTVjFvM2UqbwWsqzDLr1RsfBH-GC9pV0/sendMessage?chat_id="+chid+"&text=Server Name : "+Name+" Backup Link : https://uplod.ir/"+j[0]["file_code"]+"/"+FileName+".htm")
     print("uploaded")
-os.system("sudo systemctl start x-uiAutoBackup")
+#os.system("sudo systemctl start x-uiAutoBackup")
 os.system("systemctl enable x-uiAutoBackup")
 while True:
     upload()

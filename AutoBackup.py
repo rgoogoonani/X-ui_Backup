@@ -5,7 +5,7 @@ from threading import Thread
 try:
     import  requests
 except:
-    os.system("pip install requests")
+    os.system("pip3 install requests")
     import  requests
 import urllib3
 urllib3.disable_warnings()

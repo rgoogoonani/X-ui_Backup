@@ -9,13 +9,13 @@ except:
 import urllib3
 urllib3.disable_warnings()
 
-
-f=open("/XuiBackUp/config.txt","r+")
-lines=f.readlines()
-f.close()
-chid=lines[0].replace('\n','').replace('\r','')
-Name=lines[1].replace('\n','').replace('\r','')
-FileAddres=lines[2].replace('\n','').replace('\r','')
+lines = ""
+with open("/XuiBackUp/config.txt","r+") as f :
+    lines=f.read().split("\n")
+    lines=[i.replace("\r","") for i in lines]
+chid=lines[0]
+Name=lines[1]
+FileAddres=lines[2]
 spl1=FileAddres.split("/")
 t=len(spl1)-1
 FileName=spl1[t]

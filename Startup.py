@@ -15,7 +15,7 @@ print(Name)
 #-------------------------------------------------------------------
 FileAddres=input("File Addres : ")
 if FileAddres=="":
-    FileAddres="/etc/x-ui-english/x-ui-english.db"
+    FileAddres="/etc/x-ui/x-ui.db"
 print(FileAddres)
 with open("/XuiBackUp/config.txt","w") as f:
     f.writelines(f"{chid}\n{Name}\n{FileAddres}\n{botToken}")

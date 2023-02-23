@@ -27,5 +27,8 @@ def upload():
     requests.get(f"https://api.telegram.org/bot{token}/sendDocument?chat_id={chid}&caption=Server Name : {Name}",files={'document': (FileName, open(FileAddres, 'rb'))})
     print("uploaded")
 while True:
-    upload()
+    try:
+        upload()
+    except:
+        print()
     time.sleep(60)

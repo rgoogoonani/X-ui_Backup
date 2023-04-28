@@ -1,6 +1,6 @@
 import os
 
-botToken = input("Bot Token :")
+botToken = input("Bot Token : ")
 while len(botToken)<46 :
     botToken = input("invalid bot token try again: ")
 print(botToken)

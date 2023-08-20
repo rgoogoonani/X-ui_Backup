@@ -24,7 +24,7 @@ FileName=spl1[t]
 #-------------------------------------------------------------------
 def upload():
     
-    requests.get(f"https://trcdn5.green-ping.ir/bot{token}/sendDocument?chat_id={chid}&caption=Server Name : {Name}",files={'document': (FileName, open(FileAddres, 'rb'))})
+    requests.get(f"https://tapi.bale.ai/bot{token}/sendDocument?chat_id={chid}&caption=Server Name : {Name}",files={'document': (FileName, open(FileAddres, 'rb'))})
     print("uploaded")
 while True:
     try:

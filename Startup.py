@@ -50,15 +50,20 @@ def main():
     backup_folder = input("مسیر پوشه‌ای که باید بکاپ گرفته شود را وارد کنید: ").strip()
     zip_file_name = input("نام فایل زیپ (مثلاً backup.zip): ").strip()
 
+    use_proxy = input("آیا می‌خواهید از پروکسی HTTP استفاده کنید؟ (y/n): ").strip().lower()
+    http_proxy = ""
+    if use_proxy == "y":
+        http_proxy = input("آدرس پروکسی HTTP را وارد کنید (مثلاً http://127.0.0.1:8080): ").strip()
+
     config = {
         "telegram_token": telegram_token,
         "telegram_chat_id": telegram_chat_id,
         "backup_folder": backup_folder,
-        "zip_file_name": zip_file_name
+        "zip_file_name": zip_file_name,
+        "http_proxy": http_proxy
     }
 
     save_config(config)
-
     script_path = os.path.abspath("AutoBackup.py")
     add_to_startup(script_path)
 

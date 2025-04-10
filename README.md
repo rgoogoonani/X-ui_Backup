@@ -1,8 +1,6 @@
 # install 
 
 ````
-sudo wget https://raw.githubusercontent.com/rgoogoonani/X-ui_Backup/main/Backup
-sudo chmod +x Backup
-sudo ./Backup
+bash <(curl -s https://raw.githubusercontent.com/rgoogoonani/X-ui_Backup/main/Backup)
 ````
 

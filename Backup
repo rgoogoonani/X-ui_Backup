@@ -1,9 +1,36 @@
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install python3.9 -y
-sudo apt install python3-pip -y
-sudo mkdir /XuiBackUp
-cd /XuiBackUp
-sudo wget https://raw.githubusercontent.com/rgoogoonani/X-ui_Backup/main/Startup.py
-sudo wget https://raw.githubusercontent.com/rgoogoonani/X-ui_Backup/main/AutoBackup.py
-sudo python3 /XuiBackUp/Startup.py
+#!/bin/bash
+
+echo "نصب وابستگی‌های پایتون..."
+
+# بررسی وجود pip
+if ! command -v pip3 &> /dev/null; then
+    echo "pip3 یافت نشد. در حال نصب..."
+    sudo apt update
+    sudo apt install -y python3-pip
+fi
+
+# بررسی وجود requirements.txt
+if [[ ! -f "requirements.txt" ]]; then
+    echo "در حال ساختن فایل requirements.txt..."
+    echo "requests" > requirements.txt
+fi
+
+# نصب پکیج‌ها از طریق requirements.txt
+pip3 install -r requirements.txt
+
+# بررسی وجود فایل‌های اصلی و دانلود در صورت نیاز
+if [[ ! -f "Startup.py" ]]; then
+    echo "در حال دانلود Startup.py..."
+    wget https://raw.githubusercontent.com/rgoogoonani/X-ui_Backup/main/Startup.py -O Startup.py
+fi
+
+if [[ ! -f "AutoBackup.py" ]]; then
+    echo "در حال دانلود AutoBackup.py..."
+    wget https://raw.githubusercontent.com/rgoogoonani/X-ui_Backup/main/AutoBackup.py -O AutoBackup.py
+fi
+
+# اجرای تنظیمات اولیه
+echo "اجرای Startup.py برای تنظیم اولیه..."
+python3 Startup.py
+
+echo "نصب و راه‌اندازی کامل شد."

@@ -3,10 +3,8 @@ import zipfile
 import requests
 import json
 
-# حد اکثر حجم مجاز برای هر فایل در تلگرام (49MB)
 MAX_SIZE = 49 * 1024 * 1024
 
-# تنظیمات از config.json
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
@@ -14,6 +12,14 @@ BOT_TOKEN = config['telegram_token']
 CHAT_ID = config['telegram_chat_id']
 FOLDER_PATH = config['backup_folder']
 ZIP_NAME = config['zip_file_name']
+HTTP_PROXY = config.get('http_proxy', '')
+
+proxies = {}
+if HTTP_PROXY:
+    proxies = {
+        'http': HTTP_PROXY,
+        'https': HTTP_PROXY
+    }
 
 def zip_folder(folder_path, zip_name):
     with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -39,26 +45,25 @@ def split_file(file_path, part_size):
     return parts
 
 def send_files_to_telegram(file_list):
-    # پیام متنی ابتدایی
     message = f'بکاپ پوشه "{FOLDER_PATH}" ارسال می‌شود. تعداد فایل‌ها: {len(file_list)}'
     requests.post(
         f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage',
-        data={'chat_id': CHAT_ID, 'text': message}
+        data={'chat_id': CHAT_ID, 'text': message},
+        proxies=proxies
     )
 
-    # ارسال فایل‌ها
     for file_path in file_list:
         with open(file_path, 'rb') as f:
             response = requests.post(
                 f'https://api.telegram.org/bot{BOT_TOKEN}/sendDocument',
                 data={'chat_id': CHAT_ID},
-                files={'document': f}
+                files={'document': f},
+                proxies=proxies
             )
         if response.status_code != 200:
             print(f'ارسال فایل {file_path} با خطا مواجه شد.')
 
 def main():
-    # حذف فایل‌های قبلی
     if os.path.exists(ZIP_NAME):
         os.remove(ZIP_NAME)
 

@@ -2,6 +2,7 @@ import os
 import zipfile
 import requests
 import json
+import time
 
 MAX_SIZE = 49 * 1024 * 1024
 
@@ -80,4 +81,6 @@ def main():
     os.remove(ZIP_NAME)
 
 if __name__ == '__main__':
-    main()
+    while True:
+    	main()
+    	time.sleep(120)

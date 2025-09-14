@@ -82,5 +82,9 @@ def main():
 
 if __name__ == '__main__':
     while True:
-    	main()
-    	time.sleep(120)
+    	try:
+    	    	main()
+    	    	time.sleep(1200)
+    	catch:
+    	    	print("")
+    	    	time.sleep(120)

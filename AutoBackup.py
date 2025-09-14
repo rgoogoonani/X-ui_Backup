@@ -85,6 +85,6 @@ if __name__ == '__main__':
     	try:
     	    	main()
     	    	time.sleep(1200)
-    	catch:
+    	except:
     	    	print("")
     	    	time.sleep(120)
